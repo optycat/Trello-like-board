@@ -12,11 +12,11 @@ const useAPI = () => {
             .then(res => res.json());
     };
 
-    const addTaskEssense = (addBody = []) => {
+    const addTaskEssense = (addBody = {}) => {
         fetch(`${_ApiBase}/tasks/add`, {
             method: 'POST',
             headers: _querryHeaders,
-            body: `{"taskTitle": "${addBody[0]}", "listId": "${addBody[1]}"}`
+            body: `{"taskTitle": "${addBody.taskTitle}", "listId": "${addBody.listId}"}`
         });
     };
 
