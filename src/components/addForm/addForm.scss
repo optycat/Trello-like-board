@@ -1,0 +1,21 @@
+.add-button {
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #5f72af;
+    text-align: center;
+    text-decoration: none;
+    vertical-align: middle;
+    cursor: pointer;
+    border: 1px solid #5f72af;
+    border-radius: 0.375rem;
+    background-color: #ffffff;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out;
+
+
+    &:hover {
+        color: #ffffff;
+        background-color: #5f72af;
+    }
+}

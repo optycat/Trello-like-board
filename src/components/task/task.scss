@@ -1,0 +1,14 @@
+.toast {
+    margin: 5px 0;
+    max-height: 40px;
+
+    & &-header {
+        border-bottom: none;
+        padding-bottom: 5px;
+    }
+
+    & &-body {
+        padding: 2px;
+    }
+
+}
