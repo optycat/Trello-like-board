@@ -43,7 +43,7 @@ export default function AddForm({ essense, essenceStyles, listId }) {
                     addTaskEssense(inputValue, listId);
                     fetchData('tasks', () => addTask({ taskTitle: inputValue, listId: listId, _id: mongoObjectId() }));
                 }
-            } else {
+            } else { 
                 addListEssense(inputValue);
                 fetchData('lists', () => addList({ title: inputValue, _id: mongoObjectId() }));
             }
