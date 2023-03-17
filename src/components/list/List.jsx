@@ -13,8 +13,6 @@ const List = ({ title, id, listId }) => {
 
     const tasks = useSelector(state => state.tasks);
 
-    // useEffect(() => { console.log(tasks)}, []);
-
     const dispatch = useDispatch();
     const { deleteEssence } = useAPI();
 
