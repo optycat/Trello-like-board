@@ -39,11 +39,15 @@ export default function AddForm({ essense, essenceStyles, listId }) {
             }
 
             if (essense === 'tasks') {
-                addTaskEssense(inputValue, listId);
-                fetchData('tasks', () => addTask({ taskTitle: inputValue, listId: listId, _id: mongoObjectId() }));
+                if (inputValue && listId) {
+                    addTaskEssense(inputValue, listId);
+                    fetchData('tasks', () => addTask({ taskTitle: inputValue, listId: listId, _id: mongoObjectId() }));
+                }
             } else {
-                addListEssense(inputValue);
-                fetchData('lists', () => addList({ title: inputValue, _id: mongoObjectId() }));
+                if (inputValue && listId) {
+                    addListEssense(inputValue, listId);
+                    fetchData('lists', () => addList({ title: inputValue, _id: mongoObjectId() }));
+                }
             }
 
             console.log(tasks);
