@@ -35,7 +35,7 @@ const Task = ({ taskTitle, id, postedDate }) => {
         <Toast onClose={() => handleDeleteTask(id)}>
             <Toast.Header>
                 <strong className="me-auto">{taskTitle}</strong>
-                <small>{getPostTime() > 60 ? 'more ther hour ' : `${getPostTime()} mins `} ago</small>
+                <small>{getPostTime() > 60 ? 'more then hour ' : `${getPostTime()} mins `} ago</small>
             </Toast.Header>
             <Toast.Body />
         </Toast>
