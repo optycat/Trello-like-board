@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Toast } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { deleteTask } from "../../storage/actions";
@@ -6,21 +7,35 @@ import useAPI from "../../services/useAPI";
 
 import './task.scss';
 
-const Task = ({ taskTitle, id }) => {
+const Task = ({ taskTitle, id, postedDate }) => {
 
     const dispatch = useDispatch();
-    const {deleteEssence} = useAPI();
+    const { deleteEssence } = useAPI();
+    const [timeFired, setTimeFired] = useState(true);
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setTimeFired(!timeFired);
+        }, 60000);
+        return () => clearTimeout(timer);
+    }, [timeFired]);
 
     const handleDeleteTask = (id) => {
         deleteEssence('tasks', id);
         dispatch(deleteTask(id));
     };
 
+    const getPostTime = () => {
+        const postedMinutes = postedDate / 60000;
+        const minutesLocal = new Date().getTime() / 60000;
+        return Math.round(minutesLocal - postedMinutes);
+    };
+
     return (
         <Toast onClose={() => handleDeleteTask(id)}>
             <Toast.Header>
                 <strong className="me-auto">{taskTitle}</strong>
-                <small>11 mins ago</small>
+                <small>{getPostTime() > 60 ? 'more ther hour ' : `${getPostTime()} mins `} ago</small>
             </Toast.Header>
             <Toast.Body />
         </Toast>

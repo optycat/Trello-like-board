@@ -1,4 +1,4 @@
-const initialState = { lists: [], tasks: [], inputValue: '' };
+const initialState = { lists: [], tasks: [] };
 
 const reduser = (state = initialState, action) => {
     switch (action.type) {
@@ -31,11 +31,6 @@ const reduser = (state = initialState, action) => {
             return {
                 ...state,
                 tasks: state.tasks.filter(item => item._id !== action.payload),
-            };
-        case "INPUTCHANGE":
-            return {
-                ...state,
-                inputValue: action.payload,
             };
         default:
             return state;

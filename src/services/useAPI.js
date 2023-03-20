@@ -16,7 +16,7 @@ const useAPI = () => {
         fetch(`${_ApiBase}/tasks/add`, {
             method: 'POST',
             headers: _querryHeaders,
-            body: `{"taskTitle": "${taskTitle}", "listId": "${listId}"}`
+            body: `{"taskTitle": "${taskTitle}", "listId": "${listId}", "postedDate": "${new Date().getTime()}"}`
         });
     };
 
