@@ -33,7 +33,7 @@ const List = ({ title, id }) => {
                     <button className={`btn btn-outline-danger list-delete ${tasks.filter(item => item.id === id).length > 0 ? 'disabled' : ''}`} onClick={() => handleDeleteList(id)}></button>
                 </div>
                 <ul>
-                    {tasks.filter(item => +item.listId === id).map(({ _id, taskTitle, postedDate }) => <Task key={_id} taskTitle={taskTitle} id={_id} postedDate={postedDate} />)}
+                    {tasks.filter(item => item.listId === id).map(({ _id, taskTitle, postedDate }) => <Task key={_id} taskTitle={taskTitle} id={_id} postedDate={postedDate} />)}
                 </ul>
                 <AddForm essense={'tasks'} essenceStyles={"list-add list-footer"} listId={id} />
             </ul>
