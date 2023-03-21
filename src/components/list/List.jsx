@@ -18,7 +18,7 @@ const List = ({ title, id }) => {
     const { deleteEssence } = useAPI();
 
     const handleDeleteList = (id) => {
-        if (tasks.filter(item => item.id === id).length > 0) {
+        if (tasks.filter(item => item.listId === id).length === 0) {
             deleteEssence('lists', id);
             dispatch(deleteList(id));
         }
@@ -29,8 +29,9 @@ const List = ({ title, id }) => {
             <ul className="list">
                 <div className="list-header">
                     {/* <h3>{title}</h3> */}
-                    <TitlePretier content={title} limit={25}/>
-                    <button className={`btn btn-outline-danger list-delete ${tasks.filter(item => item.id === id).length > 0 ? 'disabled' : ''}`} onClick={() => handleDeleteList(id)}></button>
+                    <TitlePretier content={title} limit={25} />
+                    <button className={`btn btn-outline-danger list-delete ${tasks.filter(item => item.listId === id).length > 0 ? 'disabled' : ''}`}
+                        onClick={() => handleDeleteList(id)}></button>
                 </div>
                 <ul>
                     {tasks.filter(item => item.listId === id).map(({ _id, taskTitle, postedDate }) => <Task key={_id} taskTitle={taskTitle} id={_id} postedDate={postedDate} />)}
