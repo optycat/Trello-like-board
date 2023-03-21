@@ -1,6 +1,6 @@
 import { Form } from "react-bootstrap";
 import { useState } from "react";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import { addList, addTask } from "../../storage/actions";
 import useAPI from "../../services/useAPI";
@@ -11,43 +11,35 @@ export default function AddForm({ essense, essenceStyles, listId }) {
 
     const dispatch = useDispatch();
 
-    const { addTaskEssense, addListEssense, getAll } = useAPI();
+    const { addTaskEssense, addListEssense } = useAPI();
 
     const [inputValue, setInputValue] = useState();
 
     const handleInputChange = e => {
         setInputValue(e.target.value);
     };
-    const tasks = useSelector(state => state.tasks);
 
-
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         if (inputValue.trim()) {
 
-            // const mongoObjectId = function () {
-            //     var timestamp = (new Date().getTime() / 1000 | 0).toString(16);
-            //     return timestamp + 'xxxxxxxxxxxxxxxx'.replace(/[x]/g, function () {
-            //         return (Math.random() * 16 | 0).toString(16);
-            //     }).toLowerCase();
-            // };
+            async function fetchData(essence, action, fetchAction) {
+                if (essence === 'tasks') {
+                    const data = await fetchAction(inputValue, listId);
+                    dispatch(action(data));
+                }
+                if (essence === 'lists') {
+                    const data = await fetchAction(inputValue);
+                    dispatch(action(data));
+                }
 
-            async function fetchData(essence, action) {
-                const data = await getAll(essence);
-                dispatch(action(data[data.length - 1]));
-                console.log(data)
             }
 
             if (essense === 'tasks') {
-                if (inputValue) {
-                    addTaskEssense(inputValue, listId);
-                    fetchData('tasks', addTask);
-                    // console.log(tasks);//() => addTask({ taskTitle: inputValue, listId: listId, _id: mongoObjectId(), postedDate: new Date().getTime() }));
-                }
-            } else { 
-                addListEssense(inputValue);
-                fetchData('lists', addList);//() => addList({ title: inputValue, _id: mongoObjectId() }));
+                fetchData('tasks', addTask, addTaskEssense);
+            } else {
+                fetchData('lists', addList, addListEssense);
             }
 
             setInputValue('');

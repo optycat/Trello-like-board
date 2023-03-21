@@ -12,20 +12,20 @@ const useAPI = () => {
             .then(res => res.json());
     };
 
-    const addTaskEssense = (taskTitle = 'empty task', listId = 0) => {
-        fetch(`${_ApiBase}/tasks/add`, {
+    const addTaskEssense = async (taskTitle = 'empty task', listId = 0) => {
+        return await fetch(`${_ApiBase}/tasks/add`, {
             method: 'POST',
             headers: _querryHeaders,
             body: `{"taskTitle": "${taskTitle}", "listId": "${listId}", "postedDate": "${new Date().getTime()}"}`
-        });
+        }).then(res => res.json());
     };
 
-    const addListEssense = (addBody = 'empty list') => {
-        fetch(`${_ApiBase}/lists/add`, {
+    const addListEssense = async (addBody = 'empty list') => {
+        return await fetch(`${_ApiBase}/lists/add`, {
             method: 'POST',
             headers: _querryHeaders,
             body: `{"title": "${addBody}"}`
-        });
+        }).then(res => res.json());
     };
 
     const deleteEssence = (deleteEssence = 'tasks', deleteId) => {
