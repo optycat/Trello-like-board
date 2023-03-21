@@ -3,13 +3,14 @@ import { deleteList } from "../../storage/actions";
 import useAPI from "../../services/useAPI";
 import { useSelector, useDispatch } from "react-redux";
 // import { useEffect } from "react";
+import TitlePretier from "../titlePretier/TitlePretier";
 
 import Task from "../task/Task";
 import AddForm from "../addForm/AddForm";
 
 import './list.scss'
 
-const List = ({ title, id, listId }) => {
+const List = ({ title, id }) => {
 
     const tasks = useSelector(state => state.tasks);
 
@@ -17,7 +18,7 @@ const List = ({ title, id, listId }) => {
     const { deleteEssence } = useAPI();
 
     const handleDeleteList = (id) => {
-        if (!tasks.filter(item => +item.listId === listId).length) {
+        if (tasks.filter(item => item.id === id).length > 0) {
             deleteEssence('lists', id);
             dispatch(deleteList(id));
         }
@@ -27,13 +28,14 @@ const List = ({ title, id, listId }) => {
         <Col className="d-flex justify-content-center" lg={4}>
             <ul className="list">
                 <div className="list-header">
-                    <h3>{title}</h3>
-                    <button className="btn btn-outline-danger list-delete" onClick={() => handleDeleteList(id)}></button>
+                    {/* <h3>{title}</h3> */}
+                    <TitlePretier content={title} limit={25}/>
+                    <button className={`btn btn-outline-danger list-delete ${tasks.filter(item => item.id === id).length > 0 ? 'disabled' : ''}`} onClick={() => handleDeleteList(id)}></button>
                 </div>
                 <ul>
-                    {tasks.filter(item => +item.listId === listId).map(({ _id, taskTitle, postedDate }) => <Task key={_id} taskTitle={taskTitle} id={_id} postedDate={postedDate} />)}
+                    {tasks.filter(item => +item.listId === id).map(({ _id, taskTitle, postedDate }) => <Task key={_id} taskTitle={taskTitle} id={_id} postedDate={postedDate} />)}
                 </ul>
-                <AddForm essense={'tasks'} essenceStyles={"list-add list-footer"} listId={listId} />
+                <AddForm essense={'tasks'} essenceStyles={"list-add list-footer"} listId={id} />
             </ul>
         </Col>
     )

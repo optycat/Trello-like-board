@@ -1,5 +1,6 @@
 const initialState = { lists: [], tasks: [] };
 
+
 const reduser = (state = initialState, action) => {
     switch (action.type) {
         case "INITLIST":

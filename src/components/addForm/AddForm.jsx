@@ -26,26 +26,28 @@ export default function AddForm({ essense, essenceStyles, listId }) {
 
         if (inputValue.trim()) {
 
-            const mongoObjectId = function () {
-                var timestamp = (new Date().getTime() / 1000 | 0).toString(16);
-                return timestamp + 'xxxxxxxxxxxxxxxx'.replace(/[x]/g, function () {
-                    return (Math.random() * 16 | 0).toString(16);
-                }).toLowerCase();
-            };
+            // const mongoObjectId = function () {
+            //     var timestamp = (new Date().getTime() / 1000 | 0).toString(16);
+            //     return timestamp + 'xxxxxxxxxxxxxxxx'.replace(/[x]/g, function () {
+            //         return (Math.random() * 16 | 0).toString(16);
+            //     }).toLowerCase();
+            // };
 
             async function fetchData(essence, action) {
                 const data = await getAll(essence);
-                dispatch(action(data));
+                dispatch(action(data[data.length - 1]));
+                console.log(data)
             }
 
             if (essense === 'tasks') {
                 if (inputValue) {
                     addTaskEssense(inputValue, listId);
-                    fetchData('tasks', () => addTask({ taskTitle: inputValue, listId: listId, _id: mongoObjectId(), postedDate: new Date().getTime() }));
+                    fetchData('tasks', addTask);
+                    // console.log(tasks);//() => addTask({ taskTitle: inputValue, listId: listId, _id: mongoObjectId(), postedDate: new Date().getTime() }));
                 }
             } else { 
                 addListEssense(inputValue);
-                fetchData('lists', () => addList({ title: inputValue, _id: mongoObjectId() }));
+                fetchData('lists', addList);//() => addList({ title: inputValue, _id: mongoObjectId() }));
             }
 
             setInputValue('');

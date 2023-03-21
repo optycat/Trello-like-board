@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Toast } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { deleteTask } from "../../storage/actions";
+import TitlePretier from "../titlePretier/TitlePretier";
 
 import useAPI from "../../services/useAPI";
 
@@ -34,7 +35,8 @@ const Task = ({ taskTitle, id, postedDate }) => {
     return (
         <Toast onClose={() => handleDeleteTask(id)}>
             <Toast.Header>
-                <strong className="me-auto">{taskTitle}</strong>
+                <TitlePretier className="me-auto" content={taskTitle} limit={25} />
+                {/* <strong className="me-auto">{taskTitle}</strong> */}
                 <small>{getPostTime() > 60 ? 'more then hour ' : `${getPostTime()} mins `} ago</small>
             </Toast.Header>
             <Toast.Body />

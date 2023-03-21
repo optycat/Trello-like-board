@@ -1,5 +1,6 @@
 import Board from "../src/components/board/Board";
 import BGParticles from "./components/bgParticles/BGParticles";
+import Modal from "./components/popUp/Modal";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -10,6 +11,7 @@ function App() {
     <div className="App">
       <BGParticles />
       <Board />
+      <Modal enable={true} />
     </div>
   );
 }
