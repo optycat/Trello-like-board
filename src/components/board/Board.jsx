@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { Row, Col, Container } from "react-bootstrap";
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -12,8 +12,8 @@ import './board.scss';
 const Board = () => {
 
     const lists = useSelector(state => state.lists);
-    const dispatch = useDispatch();
 
+    const dispatch = useDispatch();
     const { getAll } = useAPI();
 
     useEffect(() => {
@@ -26,19 +26,23 @@ const Board = () => {
         fetchData('tasks', initTask);
     }, []);
 
+    const memorized = useMemo(() => (
+        <Row>
+            <Col>
+                <div className="board-header">
+                    <h1>Board!</h1>
+                    <AddForm essense={'lists'} essenceStyles={"board-header-add"} />
+                </div>
+            </Col>
+        </Row>
+    ),[lists]);
+
     return (
         <Container className="board">
+            {memorized}
             <Row>
-                <Col>
-                    <div className="board-header">
-                        <h1>Board!</h1>
-                        <AddForm essense={'lists'} essenceStyles={"board-header-add"} />
-                    </div>
-                </Col>
-            </Row>
-            <Row>
-                {lists.map(({ _id, title }, i) => {
-                    return <List key={_id} id={_id} title={title} listId={i} />;
+                {lists.map(({ _id, title }) => {
+                    return <List key={_id} id={_id} title={title} />;
                 })}
             </Row>
         </Container>

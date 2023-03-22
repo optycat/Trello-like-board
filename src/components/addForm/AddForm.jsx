@@ -1,6 +1,6 @@
 import { Form } from "react-bootstrap";
 import { useState } from "react";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { addList, addTask } from "../../storage/actions";
 import useAPI from "../../services/useAPI";
@@ -10,10 +10,11 @@ import './addForm.scss';
 export default function AddForm({ essense, essenceStyles, listId }) {
 
     const dispatch = useDispatch();
+    const tasks = useSelector(state => state.tasks);
 
     const { addTaskEssense, addListEssense } = useAPI();
 
-    const [inputValue, setInputValue] = useState();
+    const [inputValue, setInputValue] = useState('');
 
     const handleInputChange = e => {
         setInputValue(e.target.value);
@@ -27,13 +28,13 @@ export default function AddForm({ essense, essenceStyles, listId }) {
             async function fetchData(essence, action, fetchAction) {
                 if (essence === 'tasks') {
                     const data = await fetchAction(inputValue, listId);
-                    dispatch(action(data));
+                    if (data.length === 1) dispatch(action(data[0]));
                 }
                 if (essence === 'lists') {
                     const data = await fetchAction(inputValue);
-                    dispatch(action(data));
+                    if (data.length > 1) dispatch(action(data[data.length - 1]));
+                    if (data.length === 1) dispatch(action(data[0]));
                 }
-
             }
 
             if (essense === 'tasks') {

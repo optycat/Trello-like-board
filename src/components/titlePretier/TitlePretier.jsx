@@ -6,7 +6,7 @@ const TitlePretier = ({ content, limit, className, tagName }) => {
 
     const handleChangeText = () => setShowAll(!showAll);
 
-    if(!tagName) {
+    if (content && !tagName) {
         if (content.length <= limit) {
             return <h3 className={className ? className : ''}>{content}</h3>;
         }
@@ -23,7 +23,7 @@ const TitlePretier = ({ content, limit, className, tagName }) => {
                 {toShow}
             </h3>
         );
-    } else {
+    } else if (content) {
         if (content.length <= limit) {
             return <strong className={className ? className : ''}>{content}</strong>;
         }
