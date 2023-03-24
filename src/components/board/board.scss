@@ -30,3 +30,9 @@
         }
     }
 }
+
+@media (min-width: 768px) {
+    .board-header {
+        max-width: 60%;
+    }
+}

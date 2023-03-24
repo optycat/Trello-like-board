@@ -5,6 +5,7 @@
     & &-header {
         border-bottom: none;
         padding-bottom: 5px;
+        background-color: transparent;
     }
 
     & &-body {
@@ -16,5 +17,22 @@
 .toast.fade.show {
     width: 100%;
     min-width: 250px;
-    flex-wrap: wrap;
+}
+
+@media (min-width: 375px) {
+    .toast.fade.show {
+        min-width: 300px;
+    }
+}
+
+@media (min-width: 990px) {
+    .toast.fade.show {
+        min-width: 250px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .toast.fade.show {
+        min-width: 300px;
+    }
 }

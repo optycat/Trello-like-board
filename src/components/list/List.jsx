@@ -24,7 +24,7 @@ const List = ({ title, id }) => {
             <button className={`btn btn-outline-danger list-delete ${tasks.filter(item => item.listId === id).length > 0 ? 'disabled' : ''}`}
                 onClick={() => handleDeleteList(id)}></button>
         </div>
-    ), [id]);
+    ), [id, tasks]);
 
     const handleDeleteList = (id) => {
         if (tasks.filter(item => item.listId === id).length === 0) {

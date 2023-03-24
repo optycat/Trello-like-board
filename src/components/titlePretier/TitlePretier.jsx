@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+import './titlePretier.scss';
+
 const TitlePretier = ({ content, limit, className, tagName }) => {
 
     const [showAll, setShowAll] = useState(false);
@@ -12,14 +14,14 @@ const TitlePretier = ({ content, limit, className, tagName }) => {
         }
         if (showAll) {
             return (
-                <h3 className={className ? className : ''} onClick={handleChangeText}>
+                <h3 className={className ? `pretier ${className}` : 'pretier'} onClick={handleChangeText}>
                     {content}
                 </h3>
             );
         }
         const toShow = content.substring(0, limit) + '...';
         return (
-            <h3 className={className ? className : ''} onClick={handleChangeText}>
+            <h3 className={className ? `pretier ${className}` : 'pretier'} onClick={handleChangeText}>
                 {toShow}
             </h3>
         );
@@ -29,14 +31,14 @@ const TitlePretier = ({ content, limit, className, tagName }) => {
         }
         if (showAll) {
             return (
-                <strong className={className ? className : ''} onClick={handleChangeText}>
+                <strong className={className ? `pretier ${className}` : 'pretier'} onClick={handleChangeText}>
                     {content}
                 </strong>
             );
         }
         const toShow = content.substring(0, limit) + '...';
         return (
-            <strong className={className ? className : ''} onClick={handleChangeText}>
+            <strong className={className ? `pretier ${className}` : 'pretier'} onClick={handleChangeText}>
                 {toShow}
             </strong>
         );
